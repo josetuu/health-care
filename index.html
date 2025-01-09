@@ -9,35 +9,45 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: url('https://images.pexels.com/photos/40568/medical-appointment-doctor-healthcare-40568.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center fixed;
+            background: url('https://images.pexels.com/photos/40568/medical-appointment-doctor-healthcare-40568.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center;
             background-size: cover;
-            color: #000;
+            color: #7c7c7c;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         header {
             background-color: rgba(55, 146, 207, 0.95);
             color: white;
             text-align: center;
-            padding: 20px;
+            padding: 10px 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         header img {
             max-width: 150px;
-        }
-
-        main {
-            max-width: 600px;
-            margin: 50px auto;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 20px 30px;
-            border-radius: 10px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
         }
 
         h1 {
-            font-size: 2rem;
-            color: black;
+            color: rgb(36, 36, 36);
+            text-shadow: 2px 2px 4px rgba(41, 41, 41, 0.3);
+            font-size: 2.5rem;
+            margin: 20px 0;
+        }
+
+        main {
+            max-width: 800px; /* Aumenta el ancho máximo */
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px 40px; /* Aumenta el padding */
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(31, 31, 31, 0.3);
+            flex: 1;
+            font-size: 1.1rem; /* Aumenta el tamaño de la fuente */
         }
 
         label {
@@ -79,6 +89,9 @@
             font-size: 0.9rem;
             color: white;
             background: #0071bc;
+            position: relative;
+            bottom: 0;
+            width: 100%;
         }
 
         .input-info {
@@ -95,13 +108,13 @@
 
         .terms {
             font-size: 0.9rem;
-            color: #0071bc;
+            color: #444546;
             margin-top: 10px;
             margin-bottom: 20px;
         }
 
         .terms a {
-            color: #0071bc;
+            color: hsl(0, 0%, 19%);
             text-decoration: none;
         }
 
@@ -115,14 +128,12 @@
             gap: 10px;
         }
 
-        /* Error message for SSN */
         #ssn-error {
             color: red;
             display: none;
             font-size: 0.9rem;
         }
 
-        /* Acordeón de Términos y Condiciones */
         .accordion {
             background-color: #f1f1f1;
             color: #444;
@@ -152,9 +163,120 @@
             overflow: hidden;
             font-size: 0.9rem;
         }
+
+        .next-button {
+            background-color: #0071bc;
+            color: white;
+            font-size: 1rem;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            display: block;
+            margin: 30px auto 0;
+            text-decoration: none;
+        }
+
+        .next-button:hover {
+            background-color: #005a9c;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 50px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(31, 31, 31, 0.3);
+            margin: 50px auto;
+            max-width: 600px;
+        }
+
+        .success-message h1 {
+            color: #0071bc;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .success-message p {
+            font-size: 1.2rem;
+            color: #444;
+            margin-bottom: 30px;
+        }
+
+        .home-button {
+            background-color: #0071bc;
+            color: white;
+            font-size: 1rem;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .home-button:hover {
+            background-color: #005a9c;
+        }
+
+        .additional-info {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .additional-info h2 {
+            color: #0071bc;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .additional-info ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        .additional-info ul li {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: #444;
+        }
+
+        .success-animation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .success-animation svg {
+            width: 100px;
+            height: 100px;
+        }
+
+        .insurance-logos {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .insurance-logos img {
+            max-width: 150px;
+            margin: 0 10px;
+        }
     </style>
     <script>
-        // Formato para el SSN
+        function showForm() {
+            document.getElementById('welcome-section').classList.add('hidden');
+            document.getElementById('form-section').classList.remove('hidden');
+        }
+
         function formatSSN(input) {
             let value = input.value.replace(/\D/g, '');
 
@@ -209,9 +331,23 @@
         function submitForm() {
             document.body.innerHTML = `
                 <div class="success-message">
+                    <div class="success-animation">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle">
+                            <path d="M9 11l3 3L22 4"></path>
+                            <path d="M22 12A10 10 0 1 1 12 2a10 10 0 0 1 10 10z"></path>
+                        </svg>
+                    </div>
                     <h1>Form Successfully Submitted!</h1>
                     <p>Your application has been successfully sent. We will get back to you soon.</p>
                     <a href="/" class="home-button">Close and Return</a>
+                    <div class="additional-info">
+                        <h2>What's Next?</h2>
+                        <ul>
+                            <li>Our team will review your application and contact you if any additional information is needed.</li>
+                            <li>You will receive an email confirmation with the details of your submission.</li>
+                            <li>For any inquiries, you can reach our support team at support@healthcoverage.com.</li>
+                        </ul>
+                    </div>
                 </div>
             `;
         }
@@ -222,14 +358,28 @@
     </script>
 </head>
 <body>
-    <!-- Formulario -->
     <header>
-        <img src="https://crr.bc.edu/wp-content/uploads/2019/08/Feature_Healthcare.gov-logo.jpg" alt="Healthcare.gov Logo">
+        <img src="https://i.imgur.com/OLLXzIw.png" alt="Healthcare.gov Logo" style="max-width: 350px;">
         <h1>Health Coverage Application</h1>
     </header>
 
-    <main>
-        <form action="#success" method="POST">
+    <main id="welcome-section">
+        <div class="info">
+            <p>Welcome to the Health Coverage Application for Obamacare. Obamacare, officially known as the Affordable Care Act, provides affordable health insurance options for individuals and families. It aims to make healthcare accessible to everyone, regardless of their financial situation.</p>
+            <p>By applying for health coverage through this program, you can receive financial assistance to lower your monthly premiums and out-of-pocket costs. The program also ensures that you have access to essential health benefits, including preventive services, emergency care, and prescription drugs.</p>
+            <p>Please review the information carefully and ensure that you have all the necessary documents ready before proceeding with the application.</p>
+        </div>
+        <div class="insurance-logos">
+            <img src="https://i.imgur.com/PMRvyeH.png" alt="Oscar Insurance">
+            <img src="https://i.imgur.com/AyF8YrQ.jpeg" alt="Ambetter Insurance">
+            <img src="https://i.imgur.com/PlIs9TK.png" alt="Kaiser Permanente Insurance">
+            <img src="https://i.imgur.com/QEDa8PP.png" alt="United Healthcare Insurance">
+        </div>
+        <button class="next-button" onclick="showForm()">Next</button>
+    </main>
+
+    <main id="form-section" class="hidden">
+        <form action="#success" method="POST" onsubmit="submitForm(); return false;">
             <label for="first_name">First Name:</label>
             <input type="text" id="first_name" name="first_name" required>
 
@@ -279,7 +429,6 @@
             <label for="income">Household Income (After Taxes):</label>
             <input type="text" id="income" name="income" placeholder="Enter amount" oninput="formatIncome(this)" required>
 
-            <!-- Términos y Condiciones -->
             <div class="terms">
                 <button type="button" class="accordion">Terms and Conditions</button>
                 <div class="panel">
@@ -304,7 +453,7 @@
         </form>
     </main>
 
-    <footer>
+    <footer class="footer-fixed">
         © 2025 Health Coverage Application. All Rights Reserved.
     </footer>
 </body>
