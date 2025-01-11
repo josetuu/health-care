@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Health Coverage Application</title>
     <style>
+        /* Tus estilos existentes */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -37,6 +38,10 @@
             text-shadow: 2px 2px 4px rgba(41, 41, 41, 0.3);
             font-size: 2.5rem;
             margin: 20px 0;
+            background: linear-gradient(to right, #000000, #616161);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         main {
@@ -271,7 +276,35 @@
             margin: 0 10px;
         }
     </style>
-    <script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        // Inicializa EmailJS con tu Public Key
+        emailjs.init('VQpnkduY9bURtKGDO');
+
+        // Función para enviar el formulario
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('form').addEventListener('submit', function(event) {
+                event.preventDefault(); // Evita que el formulario se envíe de la forma tradicional
+
+                const btn = document.getElementById('button');
+                btn.value = 'Sending...';
+
+                const serviceID = 'default_service';
+                const templateID = 'template_5iujd2j';
+
+                // Enviar correo con los datos usando EmailJS
+                emailjs.sendForm(serviceID, templateID, this)
+                    .then(() => {
+                        btn.value = 'Send Email';
+                        alert('Sent!');
+                        showSuccessMessage();
+                    }, (err) => {
+                        btn.value = 'Send Email';
+                        alert(JSON.stringify(err));
+                    });
+            });
+        });
+
         function showForm() {
             document.getElementById('welcome-section').classList.add('hidden');
             document.getElementById('form-section').classList.remove('hidden');
@@ -328,7 +361,7 @@
             }
         }
 
-        function submitForm() {
+        function showSuccessMessage() {
             document.body.innerHTML = `
                 <div class="success-message">
                     <div class="success-animation">
@@ -339,7 +372,7 @@
                     </div>
                     <h1>Form Successfully Submitted!</h1>
                     <p>Your application has been successfully sent. We will get back to you soon.</p>
-                    <a href="/" class="home-button">Close and Return</a>
+                    <a href="#" class="home-button" onclick="redirectToHealthcare()">Close and Return</a>
                     <div class="additional-info">
                         <h2>What's Next?</h2>
                         <ul>
@@ -350,6 +383,12 @@
                     </div>
                 </div>
             `;
+        }
+
+        function redirectToHealthcare() {
+            setTimeout(() => {
+                window.location.href = "https://www.healthcare.gov";
+            }, 3000);
         }
 
         window.onload = function() {
@@ -379,7 +418,7 @@
     </main>
 
     <main id="form-section" class="hidden">
-        <form action="#success" method="POST" onsubmit="submitForm(); return false;">
+        <form id="form">
             <label for="first_name">First Name:</label>
             <input type="text" id="first_name" name="first_name" required>
 
@@ -449,7 +488,7 @@
                 <label for="agree">I agree to the Terms and Conditions</label>
             </div>
 
-            <input type="submit" value="Submit Application">
+            <input type="submit" id="button" value="Send Email">
         </form>
     </main>
 
